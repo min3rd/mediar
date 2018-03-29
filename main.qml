@@ -56,7 +56,11 @@ Window {
                 y: 0
                 width: 64
                 height: 64
+                onClicked: {
+                    receiver.click("loop");
+                }
             }
+
         }
 
         Rectangle {
@@ -274,6 +278,61 @@ Window {
         width: 170
         height: 284
         color: "#000000"
+
+        Rectangle {
+            id: child_1
+            x: 8
+            y: 8
+            width: 154
+            height: 37
+            color: "#ffffff"
+
+            MouseArea {
+                id: mouseArea
+                width: 154
+                height: 37
+                onClicked: {
+                   receiver.click("child_1");
+                }
+            }
+
+            Text {
+                id: child_text
+                width: 154
+                height: 37
+                text: qsTr("Child 1")
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: 12
+            }
+        }
+
+        Rectangle {
+            id: child_2
+            x: 8
+            y: 47
+            width: 154
+            height: 37
+            color: "#ffffff"
+            MouseArea {
+                id: mouseArea1
+                width: 154
+                height: 37
+                onClicked: {
+                     receiver.click("child_2");
+                }
+            }
+
+            Text {
+                id: child_text1
+                width: 154
+                height: 37
+                text: qsTr("Child 2")
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: 12
+            }
+        }
     }
 
 
