@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     main.cpp \
     main.cpp \
-    receiver.cpp
+    receiver.cpp \
+    mediacontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,5 @@ HEADERS += \
     node.h \
     file.h \
     list.h \
-    receiver.h
+    receiver.h \
+    mediacontroller.h
