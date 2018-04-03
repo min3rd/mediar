@@ -4,7 +4,7 @@ import QtMultimedia 5.0
 
 
 Window {
-    id: window
+    id: main_window
     visible: true
     width: 640
     height: 480
@@ -13,11 +13,22 @@ Window {
 
     Audio{
         id:current_file
-        source: "a.ogg"
+        source: "./libs/audio/a.ogg"
         autoLoad: true
         autoPlay: true
     }
+    Item {
+        x: 17
+        y: 16
+        width: 170; height: 205
 
+        Loader { id: pageLoader }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: pageLoader.source = "main.qml"
+        }
+    }
     Item {
         id: button_panel
         x: 17
@@ -57,7 +68,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    receiver.click("loop");
+                    name_song_text.text = receiver.click("loop");
                 }
             }
 
@@ -95,23 +106,15 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    if(current_file.playbackState ===1){
-                        current_file.play();
-                    }else{
-                        current_file.pause();
-                    }
                     if(opacity_anim.running){
                         opacity_anim.stop();
                         text_play.text = "Play";
-                        receiver.click("pause");
+                        name_song_text.text = receiver.click("pause");
                     }else{
                         opacity_anim.start();
                         text_play.text = "Pause";
-                        receiver.click("play");
+                        name_song_text.text = receiver.click("play");
                     }
-                }
-                onEntered: {
-
                 }
             }
         }
@@ -143,7 +146,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    receiver.click("previous");
+                    name_song_text.text = receiver.click("previous");
                 }
             }
         }
@@ -174,7 +177,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    receiver.click("next");
+                    name_song_text.text = receiver.click("next");
                 }
             }
         }
@@ -212,10 +215,10 @@ Window {
                 onClicked: {
                     if(!text_mute.text.match("mute")){
                         text_mute.text = "Ummute";
-                        receiver.click("mute");
+                        name_song_text.text = receiver.click("mute");
                     }else{
                         text_mute.text = "Mute";
-                        receiver.click("unmute");
+                        name_song_text.text = receiver.click("unmute");
                     }
                 }
             }
@@ -253,13 +256,13 @@ Window {
         Text {
             id: name_song_text
             x: 0
-            y: 306
-            width: 640
-            height: 68
-            color: "#b3b3b3"
+            y: 0
+            width: 611
+            height: 33
+            color: "#ffffff"
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: 12
+            font.pixelSize: 20
         }
     }
     Rectangle {
@@ -268,7 +271,7 @@ Window {
         y: 16
         width: 435
         height: 284
-        color: "#000000"
+        color: "#ffffff"
     }
 
     Rectangle {
@@ -277,68 +280,29 @@ Window {
         y: 16
         width: 170
         height: 284
-        color: "#000000"
+        color: "#ffffff"
 
-        Rectangle {
-            id: child_1
-            x: 8
-            y: 8
-            width: 154
-            height: 37
-            color: "#ffffff"
-
-            MouseArea {
-                id: mouseArea
-                width: 154
-                height: 37
-                onClicked: {
-                   receiver.click("child_1");
+        ListView {
+            id: list_song
+            x: 0
+            y: 0
+            width: 170
+            height: 284
+            model: dataList
+            delegate: Rectangle{
+                height: 20
+                width: 170
+                Text {
+                    text: modelData;
                 }
-            }
-
-            Text {
-                id: child_text
-                width: 154
-                height: 37
-                text: qsTr("Child 1")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                font.pixelSize: 12
-            }
-        }
-
-        Rectangle {
-            id: child_2
-            x: 8
-            y: 47
-            width: 154
-            height: 37
-            color: "#ffffff"
-            MouseArea {
-                id: mouseArea1
-                width: 154
-                height: 37
-                onClicked: {
-                     receiver.click("child_2");
+                MouseArea{
+                    width: 20;
+                    height: 170;
+                    onClicked: {
+                        name_song_text = receiver.click(modelData);
+                    }
                 }
-            }
-
-            Text {
-                id: child_text1
-                width: 154
-                height: 37
-                text: qsTr("Child 2")
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                font.pixelSize: 12
             }
         }
     }
-
-
-
-
-
-
-
 }

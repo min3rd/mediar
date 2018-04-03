@@ -13,6 +13,6 @@ signals:
     void changeSignal(int i);
     void pauseSignal();
 public slots:
-    void click(QString s);
+    QString click(QString s);
 };
 #endif // RECEIVER_H
