@@ -14,8 +14,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mediacontroller.cpp \
-    receiver.cpp
+    receiver.cpp \
+    song.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,8 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    list.h \
-    mediacontroller.h \
-    node.h \
     receiver.h \
     song.h

@@ -1,7 +1,8 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtMultimedia 5.0
-
+import Qt.labs.folderlistmodel 2.2
+import QtQuick.Dialogs 1.2
 
 Window {
     id: main_window
@@ -10,24 +11,15 @@ Window {
     height: 480
     color: "#2c2929"
     title: qsTr("Mediar")
+    FolderListModel {
+        id: folderModel
+        folder: folderPath
+    }
 
     Audio{
         id:current_file
-        source: "./libs/audio/a.ogg"
         autoLoad: true
         autoPlay: true
-    }
-    Item {
-        x: 17
-        y: 16
-        width: 170; height: 205
-
-        Loader { id: pageLoader }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: pageLoader.source = "main.qml"
-        }
     }
     Item {
         id: button_panel
@@ -75,7 +67,7 @@ Window {
         }
 
         Rectangle {
-            id: react_play
+            id: rect_play
             x: 274
             y: 28
             width: 64
@@ -236,6 +228,35 @@ Window {
         to: "green"
         loops: Animation.Infinite
     }
+    FileDialog {
+        id: fileDialog
+        title: "Please choose a file"
+        folder: shortcuts.home
+        onAccepted: {
+            receiver.setPath(fileDialog.folder);
+        }
+    }
+    Rectangle{
+        id: open_folder
+        x: 17
+        y: 16
+        width: 170
+        height: 29
+        Text {
+            id: open_text
+            text: qsTr("Open")
+        }
+        MouseArea {
+            id: mouseArea
+            width: 170
+            height: 29
+            onClicked: {
+                fileDialog.visible = true;
+            }
+        }
+
+    }
+
     NumberAnimation{
         id: opacity_anim;
         target: play_background
@@ -272,14 +293,21 @@ Window {
         width: 435
         height: 284
         color: "#ffffff"
+
+        Image {
+            id: img
+            width: 435
+            height: 284
+            source: "qrc:/qtquickplugin/images/template_image.png"
+        }
     }
 
     Rectangle {
         id: play_list
         x: 17
-        y: 16
+        y: 51
         width: 170
-        height: 284
+        height: 249
         color: "#ffffff"
 
         ListView {
@@ -287,22 +315,30 @@ Window {
             x: 0
             y: 0
             width: 170
-            height: 284
+            height: 235
             model: dataList
-            delegate: Rectangle{
+            delegate: MouseArea{
                 height: 20
                 width: 170
+                Rectangle{
+                    x:1
+                    y:1
+                    height: 18
+                    width: 168
+                    color: "black"
+                }
+
                 Text {
                     text: modelData;
+                    color: "#FFFFFF"
+
                 }
-                MouseArea{
-                    width: 20;
-                    height: 170;
-                    onClicked: {
-                        name_song_text = receiver.click(modelData);
-                    }
+                onClicked: {
+                    current_file.source = folderModel.folder + "/" + receiver.click(modelData);
                 }
+
             }
         }
     }
+
 }
