@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>libs/img/next.png</file>
+        <file>libs/audio/a.ogg</file>
+        <file>libs/img/play.png</file>
+        <file>libs/img/previous.png</file>
     </qresource>
 </RCC>

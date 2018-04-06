@@ -2,8 +2,9 @@
 Receiver::Receiver(QObject *parent):QObject(parent){
 
 }
-void Receiver::click(QString s){
-    if(s.compare("play")){
-        emit this->playSignal();
-    }
+QString Receiver::click(QString s){
+    return s;
+}
+void Receiver::setPath(QString path){
+
 }
