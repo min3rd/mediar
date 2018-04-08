@@ -9,12 +9,16 @@
 class Receiver : public QObject{
     Q_OBJECT
 public:
-    QDir dir;
+    int index = 0;
+    bool loop = false;
+    bool mute = false;
+    bool playing = false;
     QStringList dataList;
     QQmlContext* context;
     explicit Receiver(QObject *parent = 0);
 public slots:
     QString click(QString s);
     void setPath(QString path);
+    bool addFile(QString path);
 };
 #endif // RECEIVER_H
