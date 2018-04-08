@@ -11,15 +11,14 @@ Window {
     height: 480
     color: "#2c2929"
     title: qsTr("Mediar")
-    FolderListModel {
-        id: folderModel
-        folder: folderPath
-    }
 
     Audio{
         id:current_file
         autoLoad: true
         autoPlay: true
+        onPlaying: {
+            name_song_text.text = current_file.objectName;
+        }
     }
     Item {
         id: button_panel
@@ -60,7 +59,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    name_song_text.text = receiver.click("loop");
+                    receiver.click("loop");
                 }
             }
 
@@ -98,15 +97,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    if(opacity_anim.running){
-                        opacity_anim.stop();
-                        text_play.text = "Play";
-                        name_song_text.text = receiver.click("pause");
-                    }else{
-                        opacity_anim.start();
-                        text_play.text = "Pause";
-                        name_song_text.text = receiver.click("play");
-                    }
+                    current_file.source = receiver.click("play");
                 }
             }
         }
@@ -138,7 +129,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    name_song_text.text = receiver.click("previous");
+                    current_file.source = receiver.click("previous");
                 }
             }
         }
@@ -169,7 +160,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    name_song_text.text = receiver.click("next");
+                    current_file.source = receiver.click("next");
                 }
             }
         }
@@ -205,13 +196,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    if(!text_mute.text.match("mute")){
-                        text_mute.text = "Ummute";
-                        name_song_text.text = receiver.click("mute");
-                    }else{
-                        text_mute.text = "Mute";
-                        name_song_text.text = receiver.click("unmute");
-                    }
+                     receiver.click("mute");
                 }
             }
         }
@@ -233,7 +218,7 @@ Window {
         title: "Please choose a file"
         folder: shortcuts.home
         onAccepted: {
-            receiver.setPath(fileDialog.folder);
+            receiver.addFile(fileDialog.fileUrl);
         }
     }
     Rectangle{
@@ -334,7 +319,7 @@ Window {
 
                 }
                 onClicked: {
-                    current_file.source = folderModel.folder + "/" + receiver.click(modelData);
+                    current_file.source = receiver.click(modelData);
                 }
 
             }
