@@ -13,12 +13,9 @@ public:
     bool loop = false;
     bool mute = false;
     bool playing = false;
-    QStringList dataList;
-    QQmlContext* context;
     explicit Receiver(QObject *parent = 0);
 public slots:
     QString click(QString s);
     void setPath(QString path);
-    bool addFile(QString path);
 };
 #endif // RECEIVER_H

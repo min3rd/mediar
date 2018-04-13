@@ -15,7 +15,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     receiver.cpp \
-    song.cpp
+    songlist.cpp \
+    readfolder.cpp \
+    worker.cpp \
+    controller.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +35,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     receiver.h \
-    song.h
+    song.h \
+    songlist.h \
+    readfolder.h \
+    worker.h \
+    mythread.h \
+    controller.h
