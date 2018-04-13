@@ -9,16 +9,13 @@ Window {
     visible: true
     width: 640
     height: 480
-    color: "#2c2929"
+    color: "#403636"
     title: qsTr("Mediar")
 
     Audio{
         id:current_file
         autoLoad: true
         autoPlay: true
-        onPlaying: {
-            name_song_text.text = current_file.objectName;
-        }
     }
     Item {
         id: button_panel
@@ -28,7 +25,7 @@ Window {
         height: 120
 
         Rectangle {
-            id: react_loop
+            id: rect_loop
             x: 8
             y: 28
             width: 64
@@ -59,7 +56,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    receiver.click("loop");
+
                 }
             }
 
@@ -206,13 +203,6 @@ Window {
 
     }
 
-    PropertyAnimation{
-        id: play_anim
-        target: play_background
-        properties: "color"
-        to: "green"
-        loops: Animation.Infinite
-    }
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
@@ -220,26 +210,6 @@ Window {
         onAccepted: {
             receiver.addFile(fileDialog.fileUrl);
         }
-    }
-    Rectangle{
-        id: open_folder
-        x: 17
-        y: 16
-        width: 170
-        height: 29
-        Text {
-            id: open_text
-            text: qsTr("Open")
-        }
-        MouseArea {
-            id: mouseArea
-            width: 170
-            height: 29
-            onClicked: {
-                fileDialog.visible = true;
-            }
-        }
-
     }
 
     NumberAnimation{
@@ -283,16 +253,16 @@ Window {
             id: img
             width: 435
             height: 284
-            source: "qrc:/qtquickplugin/images/template_image.png"
+            //source: "qrc:/qtquickplugin/images/template_image.png"
         }
     }
 
     Rectangle {
         id: play_list
         x: 17
-        y: 51
+        y: 16
         width: 170
-        height: 249
+        height: 284
         color: "#ffffff"
 
         ListView {
@@ -300,7 +270,7 @@ Window {
             x: 0
             y: 0
             width: 170
-            height: 235
+            height: 284
             model: dataList
             delegate: MouseArea{
                 height: 20
@@ -314,12 +284,13 @@ Window {
                 }
 
                 Text {
-                    text: modelData;
+
+                    text: name;
                     color: "#FFFFFF"
 
                 }
                 onClicked: {
-                    current_file.source = receiver.click(modelData);
+                    current_file.source = filePath;
                 }
 
             }
