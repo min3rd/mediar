@@ -5,6 +5,8 @@
 #include <mediacontroller.h>
 #include <QDir>
 #include <QQmlContext>
+#include <QTranslator>
+#include <QGuiApplication>
 
 class Receiver : public QObject{
     Q_OBJECT
@@ -13,6 +15,8 @@ public:
     bool loop = false;
     bool mute = false;
     bool playing = false;
+    QTranslator t;
+    QGuiApplication a;
     explicit Receiver(QObject *parent = 0);
 public slots:
     QString click(QString s);

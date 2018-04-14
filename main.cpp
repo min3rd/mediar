@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     QQmlContext* context = engine->rootContext();
 
     Receiver receiver;
+    receiver.a = app;
 //    SongList *dataList = new SongList();
     QDir dir;
     dir.setCurrent("music");

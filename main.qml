@@ -20,9 +20,9 @@ Window {
     Item {
         id: button_panel
         x: 17
-        y: 360
+        y: 376
         width: 611
-        height: 120
+        height: 104
 
         Rectangle {
             id: rect_loop
@@ -224,7 +224,7 @@ Window {
     Rectangle {
         id: label_detail
         x: 17
-        y: 306
+        y: 354
         width: 611
         height: 33
         color: "#000000"
@@ -244,7 +244,7 @@ Window {
     Rectangle {
         id: play_background
         x: 193
-        y: 16
+        y: 53
         width: 435
         height: 284
         color: "#ffffff"
@@ -260,7 +260,7 @@ Window {
     Rectangle {
         id: play_list
         x: 17
-        y: 16
+        y: 53
         width: 170
         height: 284
         color: "#ffffff"
@@ -294,6 +294,69 @@ Window {
                 }
 
             }
+        }
+    }
+
+    MouseArea {
+        id: vietname_Mouse
+        x: 528
+        y: 16
+        width: 100
+        height: 24
+
+
+        Rectangle {
+            id: rectangle
+            width: 100
+            height: 24
+            color: "#ffffff"
+        }
+        Text {
+            id: text2
+            x: 18
+            y: 5
+            text: qsTr("Vietnamese")
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.bold: false
+            fontSizeMode: Text.HorizontalFit
+            renderType: Text.NativeRendering
+            styleColor: "#000000"
+            font.pixelSize: 12
+        }
+        onClicked: {
+            receiver.click('vietnamese');
+        }
+    }
+
+    MouseArea {
+        id: english_Mouse
+        x: 416
+        y: 16
+        width: 100
+        height: 24
+        Rectangle {
+            id: rectangle1
+            width: 100
+            height: 24
+            color: "#ffffff"
+        }
+
+        Text {
+            id: text3
+            x: 32
+            y: 5
+            text: qsTr("English")
+            verticalAlignment: Text.AlignVCenter
+            renderType: Text.NativeRendering
+            font.bold: false
+            font.pixelSize: 12
+            fontSizeMode: Text.HorizontalFit
+            styleColor: "#000000"
+            horizontalAlignment: Text.AlignHCenter
+        }
+        onClicked: {
+            receiver.click('english');
         }
     }
 
