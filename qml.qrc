@@ -5,5 +5,6 @@
         <file>libs/audio/a.ogg</file>
         <file>libs/img/play.png</file>
         <file>libs/img/previous.png</file>
+        <file>libs/qm/vietnamese.qm</file>
     </qresource>
 </RCC>

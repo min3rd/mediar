@@ -2,5 +2,5 @@
 #include <QDebug>
 void Controller::handleResults(Song *song){
     this->dataList->addEvent(*song);
-    this->context->setContextProperty('dataList',this->dataList);
+    context->setContextProperty("dataList",this->dataList);
 }
