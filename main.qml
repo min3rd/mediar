@@ -16,6 +16,13 @@ Window {
         id:current_file
         autoLoad: true
         autoPlay: true
+        onPlaying: {
+            name_song_text.text = current_file.source;
+        }
+        onStopped: {
+            current_file.source = receiver.click("next");
+        }
+
     }
     Item {
         id: button_panel
@@ -23,44 +30,6 @@ Window {
         y: 376
         width: 611
         height: 104
-
-        Rectangle {
-            id: rect_loop
-            x: 8
-            y: 28
-            width: 64
-            height: 64
-            color: "#000000"
-
-            Text {
-                id: text_loop
-                x: 0
-                y: 0
-                width: 64
-                height: 64
-                color: "#ffffff"
-                text: "Loop"
-                verticalAlignment: Text.AlignVCenter
-                styleColor: "#ffffff"
-                font.family: "Courier"
-                fontSizeMode: Text.FixedSize
-                horizontalAlignment: Text.AlignHCenter
-                renderType: Text.NativeRendering
-                font.pointSize: 18
-            }
-
-            MouseArea {
-                id: loop_button
-                x: 0
-                y: 0
-                width: 64
-                height: 64
-                onClicked: {
-
-                }
-            }
-
-        }
 
         Rectangle {
             id: rect_play
@@ -94,7 +63,12 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    current_file.source = receiver.click("play");
+                    current_file.source = receiver.click(text_play.text.toLowerCase());
+                    if(text_play.text.toLowerCase().match("play")){
+                        text_play.text = "Pause";
+                    }else{
+                        text_play.text = "Play";
+                    }
                 }
             }
         }
@@ -126,7 +100,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    current_file.source = receiver.click("previous");
+                    current_file.source = receiver.click(text_previous.text.toLowerCase());
                 }
             }
         }
@@ -157,7 +131,7 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                    current_file.source = receiver.click("next");
+                    current_file.source = receiver.click(text1.text.toLowerCase());
                 }
             }
         }
@@ -193,7 +167,13 @@ Window {
                 width: 64
                 height: 64
                 onClicked: {
-                     receiver.click("mute");
+                    if(current_file.muted){
+                        current_file.muted = false;
+                        text_mute.text = "Mute";
+                    }else{
+                        current_file.muted = true;
+                        text_mute.text = "Unmute";
+                    }
                 }
             }
         }
@@ -291,6 +271,7 @@ Window {
                 }
                 onClicked: {
                     current_file.source = filePath;
+                    receiver.click(id);
                 }
 
             }

@@ -20,8 +20,9 @@ int main(int argc, char *argv[])
     QQmlContext* context = engine->rootContext();
 
     Receiver receiver;
-    receiver.a = app;
-//    SongList *dataList = new SongList();
+//    receiver.a = app;
+    SongList *dataList = new SongList();
+    receiver.songList = dataList;
     QDir dir;
     dir.setCurrent("music");
     dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
@@ -30,18 +31,22 @@ int main(int argc, char *argv[])
 //    reader.dir = dir;
 //    QObject::connect(&reader,SIGNAL(sendInfo(Song&)),dataList,SLOT(addEvent(Song&)));
 //    reader.start();
-//    QFileInfoList list = dir.entryInfoList();
-//    for (int i = 0; i < list.size(); ++i) {
-//        QFileInfo fileInfo = list[i];
-//        Song *song = new Song();
-//        song->name = fileInfo.fileName();
-//        song->filePath=fileInfo.absoluteFilePath();
-//        dataList->addEvent(*song);
-//    }
-    Controller controller;
-    controller.context = context;
+    QFileInfoList list = dir.entryInfoList();
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list[i];
+        Song *song = new Song();
+        song->name = fileInfo.fileName();
+        song->filePath=fileInfo.absoluteFilePath();
+        dataList->addEvent(*song);
+    }
+    QTranslator t;
+    t.load(":/libs/qm/vietnamese.qm");
+    receiver.t = &t;
+    app.installTranslator(&t);
+//    Controller controller;
+//    controller.context = context;
     engine->load(QUrl(QStringLiteral("qrc:/main.qml")));
     context->setContextProperty("receiver",&receiver);
-//    context->setContextProperty("dataList",controller.dataList);
+    context->setContextProperty("dataList",dataList);
     return app.exec();
 }

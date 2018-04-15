@@ -43,3 +43,6 @@ void SongList::addEvent(Song &song){
     mSonglist.append(song);
     endInsertRows();
 }
+QList<Song>* SongList::getSongList(){
+    return &mSonglist;
+}

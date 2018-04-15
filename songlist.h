@@ -15,6 +15,7 @@ public:
     int rowCount(const QModelIndex &parent) const;
     QHash<int,QByteArray> SongList::roleNames() const;
     QVariant data(const QModelIndex &index, int role) const;
+    QList<Song>* getSongList();
 public slots:
     void addEvent(Song &song);
 private:
